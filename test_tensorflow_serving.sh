@@ -7,3 +7,13 @@ target=/models/user_embedding_model \
   curl -d '{"instances": [[3.950000000000000178e+00,4.250000000000000000e+00,0.000000000000000000e+00,0.000000000000000000e+00,4.000000000000000000e+00,4.120000000000000107e+00,4.000000000000000000e+00,4.040000000000000036e+00,0.000000000000000000e+00,3.000000000000000000e+00,4.000000000000000000e+00,0.000000000000000000e+00,3.879999999999999893e+00,3.890000000000000124e+00]]}' \
   -X POST http://localhost:8501/v1/models/user_embedding_model:predict
 
+
+
+docker cp /tmp/user_embedding_model serving_base:/models/user_embedding_model
+
+docker commit --change "ENV MODEL_NAME user_embedding_model" serving_base \
+  user_embedding_model_serving
+
+docker run -p 8501:8501 -t user_embedding_model_serving &
+
+uvicorn main:app --host 127.0.0.1 --port 8000

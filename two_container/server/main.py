@@ -1,9 +1,11 @@
 import numpy as np
-import tensorflow as tf
-from tensorflow import keras
+# import tensorflow as tf
+# from tensorflow import keras
 from numpy import genfromtxt
 import joblib
 from fastapi import FastAPI
+import requests
+import json
 from pydantic import BaseModel
 
 # load user, item data
@@ -23,7 +25,7 @@ scalerItem = joblib.load('scalerItem.save')
 scalerTarget = joblib.load('scalerTarget.save')
 
 # load model
-model = tf.keras.models.load_model('user_embedding_model')
+# model = tf.keras.models.load_model('user_embedding_model')
 
 # retrieve function
 
@@ -31,7 +33,11 @@ def retrieve(uid):
     #compute user embedding
     user_vec = user_dict[uid].reshape(1,17)
     scaled_user_vec = scalerUser.transform(user_vec)
-    vu = model.predict(scaled_user_vec[:,3:])
+    data = json.dumps({"instances":scaled_user_vec[:,3:].tolist()})
+    headers = {"content-type": "application/json"}
+    json_response = requests.post('http://localhost:8501/v1/models/user_embedding_model:predict', data=data, headers=headers)
+    predictions = json.loads(json_response.text)['predictions']
+    vu = np.array(predictions)
     
     #compute dot product between user embedding and item embedding
     y_p = np.dot(vms, vu.T)
