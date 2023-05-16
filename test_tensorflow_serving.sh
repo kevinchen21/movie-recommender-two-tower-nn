@@ -17,3 +17,9 @@ docker commit --change "ENV MODEL_NAME user_embedding_model" serving_base \
 docker run -p 8501:8501 -t user_embedding_model_serving &
 
 uvicorn main:app --host 127.0.0.1 --port 8000
+
+docker build -t movie_recommender_python:v1 .
+
+docker run --rm -p 80:80 movie_recommender_python:v1
+
+79e9f9fd5a221f85dc5e34e6ecdcdaf9adc718bb7bdfbbb5d9125911bf819a05

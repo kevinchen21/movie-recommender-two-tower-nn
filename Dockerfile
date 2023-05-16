@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:2.7.0-jupyter
+FROM frolvlad/alpine-miniconda3:python3.7
 
 COPY requirements.txt .
 

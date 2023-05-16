@@ -9,9 +9,9 @@ import json
 from pydantic import BaseModel
 
 # load user, item data
-user_vecs = genfromtxt('./data/user_vecs.csv', delimiter=',')
-item_vecs = genfromtxt('./data/item_vecs.csv', delimiter=',')
-item_embeddings = genfromtxt('./data/item_embeddings.csv', delimiter=',')
+user_vecs = genfromtxt('server/data/user_vecs.csv', delimiter=',')
+item_vecs = genfromtxt('server/data/item_vecs.csv', delimiter=',')
+item_embeddings = genfromtxt('server/data/item_embeddings.csv', delimiter=',')
 vms = item_embeddings
 
 # create user feature dict
@@ -20,9 +20,9 @@ for i in range(len(user_vecs)):
     user_dict[int(user_vecs[i][0])] = user_vecs[i]
 
 # load scaler
-scalerUser = joblib.load('scalerUser.save')
-scalerItem = joblib.load('scalerItem.save')
-scalerTarget = joblib.load('scalerTarget.save')
+scalerUser = joblib.load('server/scalerUser.save')
+scalerItem = joblib.load('server/scalerItem.save')
+scalerTarget = joblib.load('server/scalerTarget.save')
 
 # load model
 # model = tf.keras.models.load_model('user_embedding_model')
