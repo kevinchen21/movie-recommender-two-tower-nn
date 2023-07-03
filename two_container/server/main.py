@@ -35,7 +35,9 @@ def retrieve(uid):
     scaled_user_vec = scalerUser.transform(user_vec)
     data = json.dumps({"instances":scaled_user_vec[:,3:].tolist()})
     headers = {"content-type": "application/json"}
-    json_response = requests.post('http://localhost:8501/v1/models/user_embedding_model:predict', data=data, headers=headers)
+    # json_response = requests.post('http://localhost:8501/v1/models/user_embedding_model:predict', data=data, headers=headers)
+    # for the two containers in the same network, communicate through the container name, we define the container name as tensorflow in the docker-compose file
+    json_response = requests.post('http://tensorflow:8501/v1/models/user_embedding_model:predict', data=data, headers=headers)
     predictions = json.loads(json_response.text)['predictions']
     vu = np.array(predictions)
     

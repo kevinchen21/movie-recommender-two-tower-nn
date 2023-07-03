@@ -1,0 +1,11 @@
+version: '3'
+services:
+  my-app:
+    image: movie_recommender_python:v1
+    ports:
+      - 80:80
+  tensorflow:
+    image: user_embedding_model_serving
+    ports:
+      - 8501:8501
+  
