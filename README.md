@@ -26,6 +26,11 @@ After we develop the server codes, we can build a docker image to integrate the 
 
 We will build two containers/images. One image is for the python code to take input (user id), and create features for the user embedding deep learning model. The second image use the tensorflow serving to serve the tensorflow model. 
 
+In the two_conatiner folder, you can find the Dockerfile to build the python image.
+
+For the tensorflow image, you can run the base tensorflow image, and then copy the user_embedding_model into the base image. See more detailed instructions in this tensoflow blog: https://www.tensorflow.org/tfx/serving/serving_kubernetes![image](https://github.com/kevinchen21/train-and-deploy-nn-recsys/assets/87917613/543c9f0b-ccb3-4d4f-bb7a-25cefd3b4c9c)
+
+
 ## deploy to AWS
 
 We can spin up a AWS EC2 and install the docker, by following this instruction (https://medium.com/bb-tutorials-and-thoughts/running-docker-containers-on-aws-ec2-9b17add53646). I will upload this image to AWS ECR and download it to the EC2 for running.
