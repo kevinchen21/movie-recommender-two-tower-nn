@@ -31,7 +31,7 @@ In the two_conatiner folder, you can find the Dockerfile to build the python ima
 For the tensorflow image, you can run the base tensorflow image, and then copy the user_embedding_model into the base image. See more detailed instructions in this tensoflow blog: https://www.tensorflow.org/tfx/serving/serving_kubernetes
 
 
-## deploy to AWS
+## deploy to AWS EC2
 
 We can spin up a AWS EC2 and install the docker, by following this instruction (https://medium.com/bb-tutorials-and-thoughts/running-docker-containers-on-aws-ec2-9b17add53646). We then can upload our python and tensorflow images to AWS ECR. Instructions on how to use ECR: https://www.youtube.com/watch?v=vWSRWpOPHws
 
