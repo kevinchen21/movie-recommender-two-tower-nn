@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movie-recommender-one-pod
+  labels:
+    app: movie-recommender-one-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movie-recommender-one-pod
+  template:
+    metadata:
+      labels:
+        app: movie-recommender-one-pod
+    spec:
+      containers:
+      - name: movie-recommender-one-pod
+        image: 776746896215.dkr.ecr.us-west-2.amazonaws.com/movie-recommender-one-pod:1.0
+        ports:
+        - containerPort: 80
+      - name: tensorflow
+        image: 776746896215.dkr.ecr.us-west-2.amazonaws.com/user-embedding:1.0
+        ports:
+        - containerPort: 8501
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: movie-recommender-one-pod-service
+spec:
+  selector:
+    app: movie-recommender-one-pod
+  type: LoadBalancer  
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30000

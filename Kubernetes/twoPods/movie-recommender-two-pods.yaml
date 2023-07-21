@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movie-recommender-two-pods
+  labels:
+    app: mmovie-recommender-two-pods
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movie-recommender-two-pods
+  template:
+    metadata:
+      labels:
+        app: movie-recommender-two-pods
+    spec:
+      containers:
+      - name: movie-recommender-two-pods
+        image: 776746896215.dkr.ecr.us-west-2.amazonaws.com/movie-recommender-two-pod:1.0
+        ports:
+        - containerPort: 80
+        env:
+        - name: tensorflow_url
+          valueFrom: 
+            configMapKeyRef:
+              name: tensorflow-configmap
+              key: tensorflow_url
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: movie-recommender-two-pods-service
+spec:
+  selector:
+    app: movie-recommender-two-pods
+  type: LoadBalancer  
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30002
