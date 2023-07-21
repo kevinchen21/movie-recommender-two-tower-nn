@@ -1,0 +1,17 @@
+version: '3'
+services:
+  my-app:
+    image: movie_recommender_python:v1
+    ports:
+      - 80:80
+  tensorflow:
+    image: user_embedding_model_serving:latest
+    ports:
+      - 8501:8501
+  locust:
+    image: locustio/locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./:/mnt/locust
+    command: -f /mnt/locust/locustfile.py
