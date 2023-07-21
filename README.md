@@ -24,6 +24,8 @@ We will build a Rest API, using FastAPI. The server will take the user informati
 ## docker image
 After we develop the server codes, we can build a docker image to integrate the server code. We can test the image by launching it in our local laptop.
 
+We will build two containers/images. One image is for the python code to take input (user id), and create features for the user embedding deep learning model. The second image use the tensorflow serving to serve the tensorflow model. 
+
 ## deploy to AWS
 
 We can spin up a AWS EC2 and install the docker, by following this instruction (https://medium.com/bb-tutorials-and-thoughts/running-docker-containers-on-aws-ec2-9b17add53646). I will upload this image to AWS ECR and download it to the EC2 for running.
