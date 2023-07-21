@@ -8,4 +8,3 @@ services:
     image: 776746896215.dkr.ecr.us-west-2.amazonaws.com/user-embedding:1.0
     ports:
       - 8501:8501
-  
